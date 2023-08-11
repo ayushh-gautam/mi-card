@@ -40,8 +40,70 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final contactBook = ContactBook();
+
     return Scaffold(
-      body: Container(),
+      appBar: AppBar(
+        title: Text('Haha '),
+      ),
+      body: Scaffold(
+        body: ListView.builder(
+          itemCount: contactBook.length,
+          itemBuilder: (context, index) {
+            final contact = contactBook.contact(atIndex: index)!;
+            return ListTile(
+              title: Text(contact.name),
+            );
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return const ContactPage();
+          }));
+        },
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class ContactPage extends StatefulWidget {
+  const ContactPage({super.key});
+
+  @override
+  State<ContactPage> createState() => _ContactPageState();
+}
+
+class _ContactPageState extends State<ContactPage> {
+  late final TextEditingController _contactController;
+
+  @override
+  void initState() {
+    super.initState();
+    _contactController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _contactController.dispose();
+    super.dispose();
+  }
+
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Add new contact'),
+      ),
+      body: Column(
+        children: [
+          TextFormField(
+            controller: _contactController,
+            decoration: InputDecoration(hintText: 'Enter your contact'),
+          )
+        ],
+      ),
     );
   }
 }
