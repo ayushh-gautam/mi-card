@@ -14,6 +14,7 @@ class Contacts {
   });
 }
 
+//11:39
 class ContactBook {
   ContactBook._sharedInstance();
   static final ContactBook _shared = ContactBook._sharedInstance();
@@ -29,6 +30,9 @@ class ContactBook {
   void removeContact({required Contacts contact}) {
     _contacts.remove(contact);
   }
+
+  Contacts? contact({required int atIndex}) =>
+      _contacts.length > atIndex ? _contacts[atIndex] : null;
 }
 
 class MainPage extends StatelessWidget {
